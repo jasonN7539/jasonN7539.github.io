@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Luna 🐱‍👤</title>
+    <title>PhD Survey</title>
 
     <!-- This is a development version of Vue.js! -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -16,19 +16,32 @@
 
   <body>
     <!-- Basic usage -->
-
     <!-- <div id="app_basic" v-bind:title="timestamp" class="experiment-block">{{ message }}</div> -->
-    <div id="questions">{{ currQuestion }}
-        <input type="radio" id="one" value="One" v-model="picked" />
-        <label for="one">Yes</label>
 
-        <input type="radio" id="two" value="Two" v-model="picked" />
-        <label for="two">No</label>
 
-        <div></div>
-        <input type="button" id="questions" value="submit" @click="clickHandler"/>
+    <div id="questions">
+        <div v-if="displayNameInput" id="name">
+            <p>Please enter your name:</p>
+            <input placeholder="First Name" />
+            <input placeholder="Last Name" />
+            <input type="button" id="" value="submit" @click="hideInput"/>
+        </div>
+
+        <div v-if="displayQuestionInput">
+            {{ currQuestion }}
+            <input type="radio" id="one" value="One" v-model="picked" />
+            <label for="one">Yes</label>
+    
+            <input type="radio" id="two" value="Two" v-model="picked" />
+            <label for="two">No</label>
+    
+            <div></div>
+            <input type="button" id="questions" value="submit" @click="clickHandler"/>
+        </div>
+  
     </div>
     <script>
+
       new Vue({
         el: "#questions",
         data: {
@@ -36,6 +49,8 @@
           questionIndex: 0,
           message: "1. Are you a nic fiend?",
           questions: ["1. Are you a nic fiend?", "2. Do you rave?", "3. Are you grumpy today?", "4. Would you like to be my Valentines?"],
+          displayNameInput: true,
+          displayQuestionInput: false
           //currQuestion: this.questions[0]
         },
         computed: {
@@ -46,10 +61,15 @@
             }
         },
         methods: {
+            hideInput () {
+                this.displayNameInput = false;
+                this.displayQuestionInput = true;
+            },
             clickHandler () {
                 if(this.questionIndex < 3){
                     this.questionIndex += 1;
                     console.log(this.picked);
+                    this.picked = "one"
                 }
                 if(this.questionIndex === 3 && this.picked == "Two") {
                     alert("Too Bad")
