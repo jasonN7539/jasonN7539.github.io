@@ -1,1 +1,64 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Luna 🐱‍👤</title>
+
+    <!-- This is a development version of Vue.js! -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- import stylesheet -->
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-vue/2.21.2/bootstrap-vue.min.js" />
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Basic usage -->
+
+    <!-- <div id="app_basic" v-bind:title="timestamp" class="experiment-block">{{ message }}</div> -->
+    <div id="questions">{{ currQuestion }}
+        <input type="radio" id="one" value="One" v-model="picked" />
+        <label for="one">Yes</label>
+
+        <input type="radio" id="two" value="Two" v-model="picked" />
+        <label for="two">No</label>
+
+        <div></div>
+        <input type="button" id="questions" value="submit" @click="clickHandler"/>
+    </div>
+    <script>
+      new Vue({
+        el: "#questions",
+        data: {
+          picked: function() { return 'one'} ,
+          questionIndex: 0,
+          message: "1. Are you a nic fiend?",
+          questions: ["1. Are you a nic fiend?", "2. Do you rave?", "3. Are you grumpy today?", "4. Would you like to be my Valentines?"],
+          //currQuestion: this.questions[0]
+        },
+        computed: {
+            currQuestion: function () {
+                //this.questionIndex = this.questionIndex + 1;
+                return this.questions[this.questionIndex];
+
+            }
+        },
+        methods: {
+            clickHandler () {
+                if(this.questionIndex < 3){
+                    this.questionIndex += 1;
+                    console.log(this.picked);
+                }
+                if(this.questionIndex === 3 && this.picked == "Two") {
+                    alert("Too Bad")
+                }
+
+            }
+        }
+
+      })
+    </script>
+  </body>
+</html>
