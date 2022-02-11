@@ -38,6 +38,10 @@
             <div></div>
             <input type="button" id="questions" value="submit" @click="clickHandler"/>
         </div>
+
+        <div>
+            <p v-if="myImage.length > 0"><img v-bind:src="myImage" width="500" height="600"></p>
+        </div>
   
     </div>
     <script>
@@ -45,6 +49,7 @@
       new Vue({
         el: "#questions",
         data: {
+          myImage:"",
           picked: function() { return 'one'} ,
           questionIndex: 0,
           message: "1. Are you a nic fiend?",
@@ -74,6 +79,10 @@
                 if(this.questionIndex === 3 && this.picked == "Two") {
                     alert("Too Bad")
                 }
+                if(this.questionIndex === 3 && this.picked == "One") {
+                    this.myImage = "pose.jpg"
+                }
+
 
             }
         }
