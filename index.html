@@ -39,8 +39,12 @@
             <input type="button" id="questions" value="submit" @click="clickHandler"/>
         </div>
 
-        <div>
+        <div v-if="displayImage">
             <p v-if="myImage.length > 0"><img v-bind:src="myImage" width="500" height="600"></p>
+            <audio controls autoplay>
+                <source src="HotlineLowQuality.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+              </audio>
         </div>
   
     </div>
@@ -55,7 +59,8 @@
           message: "1. Are you a nic fiend?",
           questions: ["1. Are you a nic fiend?", "2. Do you rave?", "3. Are you grumpy today?", "4. Would you like to be my Valentines?"],
           displayNameInput: true,
-          displayQuestionInput: false
+          displayQuestionInput: false,
+          displayImage: false
           //currQuestion: this.questions[0]
         },
         computed: {
@@ -80,7 +85,9 @@
                     alert("Too Bad")
                 }
                 if(this.questionIndex === 3 && this.picked == "One") {
+                    
                     this.myImage = "pose.jpg"
+                    this.displayImage = true
                 }
 
 
